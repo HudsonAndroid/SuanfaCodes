@@ -1,2 +1,3 @@
 # 算法
-# [Day1 最大公约数与最小公倍数](https://github.com/HudsonAndroid/SuanfaCodes/blob/master/codes/src/main/java/com/hudson/codes/gcd/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0.md)
+## [Day1 最大公约数与最小公倍数](https://github.com/HudsonAndroid/SuanfaCodes/blob/master/codes/src/main/java/com/hudson/codes/gcd/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0.md)
+## [Day2 删除无序链表的重复节点并保留一个](https://github.com/HudsonAndroid/SuanfaCodes/blob/master/codes/src/main/java/com/hudson/codes/removeNonSortRepeatNode/%E5%88%A0%E9%99%A4%E6%97%A0%E5%BA%8F%E9%93%BE%E8%A1%A8%E7%9A%84%E9%87%8D%E5%A4%8D%E8%8A%82%E7%82%B9%E5%B9%B6%E4%BF%9D%E7%95%99%E4%B8%80%E4%B8%AA.md)
