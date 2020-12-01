@@ -61,7 +61,7 @@ class Solution17 {
             }
             sb.append(s.charAt(i));
             iterateCombine(digits,letterMaps, curIndex + 1, result, sb);
-            // 退回去，回溯， 注意：移除的是当前下标的字符，是curIndex，不是i
+            // 退回去，回溯， 注意：移除的是当前下标的字符，是curIndex，不是i 【这个时候，curIndex+1已经有值了，因为执行完上条语句都已经生成完成了】
             sb.deleteCharAt(curIndex);
         }
     }
