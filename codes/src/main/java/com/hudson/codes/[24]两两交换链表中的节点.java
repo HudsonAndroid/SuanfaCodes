@@ -65,12 +65,12 @@ class Solution24 {
     // 1.每次递归返回值是什么 (返回当前两个节点调整后的结果)
     // 2.递归过程要做什么  （调整两个节点）
     // 3.终止的条件是什么  (没有两个节点了)
-    public static Main.ListNode swapPairs(Main.ListNode head) {
+    public static ListNode swapPairs(ListNode head) {
         if(head == null) return null;
-        Main.ListNode second = head.next;
+        ListNode second = head.next;
         if(second == null) return head;
         // 交换两个节点
-        Main.ListNode next = second.next;
+        ListNode next = second.next;
         second.next = head;
         head.next = swapPairs(next);
         return second;// 返回的是调整后的头结点
