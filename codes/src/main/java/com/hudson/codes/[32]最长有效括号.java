@@ -19,8 +19,10 @@ package com.hudson.codes;//给定一个只包含 '(' 和 ')' 的字符串，找�
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution32 {
+    // 这个题目真的困难
+
     // 本题最直观的办法就是栈，而针对最值问题，我们通常还可以考虑
-    // 动态规划来解决。
+    // 动态规划来解决。【目前动态规划不太好理解，这里暂停，没有继续】
     // 动态规划最核心问题就是找到状态转移方程
     // dp[i]表示以i下标结尾的最长有效括号的长度（注意：必须是到i下标的字符串，而不是说到i位置的有效括号中的最长长度）
     // 那么我们分类讨论
@@ -31,6 +33,14 @@ class Solution32 {
     // 解释下，我们上面讨论的都是假设的条件下，如果不符合条件，那么对应的dp[i]值将是默认值
 
     public int longestValidParentheses(String s) {
+        return 0;
+    }
+
+    // 我们使用辅助栈来解决
+    // （））（（（））
+    public int longestValidParentheses2(String s) {
+        if(s == null || s.length() == 0) return 0;
+
         return 0;
     }
 }
