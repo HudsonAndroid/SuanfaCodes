@@ -25,13 +25,22 @@ package com.hudson.codes;//给定一个排序链表，删除所有重复的元�
  * }
  */
 class Solution83 {
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+    
     // 时间 55.16%，空间69.17%
     // 首先，目标是排序列表
     // 因此按顺序遍历
-    public static Main.ListNode deleteDuplicates(Main.ListNode head) {
+    public static ListNode deleteDuplicates(ListNode head) {
         if(head == null) return null;
-        Main.ListNode validNode = head;
-        Main.ListNode node = head.next;
+        ListNode validNode = head;
+        ListNode node = head.next;
         while(node != null){
 //            if(node.val == validNode.val){
 //                // 当前这个位置可以去掉
