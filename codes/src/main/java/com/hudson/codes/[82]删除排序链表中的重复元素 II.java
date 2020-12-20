@@ -28,10 +28,10 @@ class Solution82 {
 
     public static class ListNode {
         int val;
-        Main.ListNode next;
+        ListNode next;
         ListNode() {}
         ListNode(int val) { this.val = val; }
-        ListNode(int val, Main.ListNode next) { this.val = val; this.next = next; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
     // 时间 76.43%，空间：69.65%
@@ -39,12 +39,12 @@ class Solution82 {
     // 分析 1 1 2 2 3 4 4 5
     // 我们结果得到的是3 5
     // 需要注意特殊情况：1）所有都是重复的 2）只有最后一个不是重复的
-    public static Main.ListNode deleteDuplicates(Main.ListNode head) {
+    public static ListNode deleteDuplicates(ListNode head) {
         if(head == null) return null;
-        Main.ListNode newHead = null;
-        Main.ListNode combineNode = null;
-        Main.ListNode preNode = head;
-        Main.ListNode node = head.next;
+        ListNode newHead = null;
+        ListNode combineNode = null;
+        ListNode preNode = head;
+        ListNode node = head.next;
         while(node != null){
             // 我们确保，进入第一个循环的内部时，preNode与node不同，否则进入第二个循环过滤
             // 我们先判断preNode是否和node相同，如果相同，那么可能后面还有相同的元素

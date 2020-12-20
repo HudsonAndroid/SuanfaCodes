@@ -84,6 +84,47 @@ class Solution86 {
     }
 
 
-    // 还有一个思路，就是使用两个指针，一个存储小的，一个存储大的 todo
+    // 还有一个思路，就是使用两个指针，一个存储小的，一个存储大的
+    // 时间：100%，空间：48.23%
+    // 这种思路很清晰
+    // 我们使用两个指针来把小于x的和大于等于x分别放到两个链表上，
+    // 完成后，链接起来即可。
+    public static ListNode partition2(ListNode head, int x) {
+        if(head == null) return  null;
+        ListNode firstHead = null;
+        ListNode first = null;
+        ListNode secondHead = null;
+        ListNode second = null;
+        ListNode node = head;
+        while(node != null){
+            if(node.val < x){
+                if(firstHead == null){
+                    firstHead = node;
+                }else{
+                    first.next = node;
+                }
+                first = node;
+            }else{
+                if(secondHead == null){
+                    secondHead = node;
+                }else{
+                    second.next = node;
+                }
+                second = node;
+            }
+            node = node.next;
+        }
+        if(firstHead == null && first == null){
+            // 如果都是大于等于的情况下，不需要给尾节点补null，因为最后一个必然是原先的尾节点
+            return secondHead;
+        }
+        first.next = secondHead;
+        // 最后思考下，是否需要后面对尾节点补null？
+        // 由于可能大于等于的最后一个可能不是原始链表的最后一个节点，因此需要补null
+        if(second != null){
+            second.next = null;
+        }
+        return firstHead;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
