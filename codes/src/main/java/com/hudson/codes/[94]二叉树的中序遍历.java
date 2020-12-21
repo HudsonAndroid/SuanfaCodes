@@ -89,13 +89,13 @@ class Solution94 {
 
     // 时间：100%,空间：96.15%
     // 中序遍历，中等难度，are you kidding me?
-    public static List<Integer> inorderTraversal(Main.TreeNode root) {
+    public static List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         backtrack(root, result);
         return result;
     }
 
-    private static void backtrack(Main.TreeNode node, List<Integer> result){
+    private static void backtrack(TreeNode node, List<Integer> result){
         if(node == null) return;
         if(node.left != null) backtrack(node.left,result);
         // 没有左节点了，那么存入结果，根节点
