@@ -13,7 +13,6 @@ package com.hudson.codes;//给定一个排序链表，删除所有含有重复�
 // Related Topics 链表 
 // 👍 413 👎 0
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 
 /**

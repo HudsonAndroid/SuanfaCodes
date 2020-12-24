@@ -59,6 +59,7 @@ class Solution95 {
     // 主要原因有1）无法判断什么时候，加入结果 2）回溯法的话会修改引用结果 3）需要先遍历所有可能的左子树再确定右子树，那确定过程中是相互嵌套的
     private static void printTreeNode(TreeNode node){
         if(node != null){
+            // 注意检查leetcode结果出来的方式，我这里没继续做，所以没检查
             System.out.print(" " + node.val);
             if(node.left != null){
                 printTreeNode(node.left);

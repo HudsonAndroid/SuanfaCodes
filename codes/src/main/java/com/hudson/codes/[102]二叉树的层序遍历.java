@@ -45,11 +45,11 @@ import java.util.Queue;
 class Solution102 {
     public static class TreeNode {
         int val;
-        Main.TreeNode left;
-        Main.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, Main.TreeNode left, Main.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
@@ -59,17 +59,17 @@ class Solution102 {
     //93.34%  76.49%
     // 队列特性，先进先出
     //
-    public static List<List<Integer>> levelOrder(Main.TreeNode root) {
+    public static List<List<Integer>> levelOrder(TreeNode root) {
         if(root == null) return new ArrayList<>();
         // 队列，LinkedList
-        Queue<Main.TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);//入队列
         int levelCount = 1;
         int nextLevelCount = 0;
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> item = new ArrayList<>();
         while(!queue.isEmpty()){
-            Main.TreeNode node = queue.poll();
+            TreeNode node = queue.poll();
             // 每次出队列都需要对当前节点的left和right入队列，而不是根据levelCount决定
 //            if(levelCount > 0){
 //                // 说明当前层还有
@@ -115,6 +115,29 @@ class Solution102 {
         // 最后一层结果需要添加
         result.add(item);
         return result;
+    }
+
+    // 另一种方法  DFS,不用管是啥
+    // 根据层数，把结果放入到指定位置的集合中
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
+        if(root == null) return new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(result, new ArrayList<Integer>(), root, 0);
+        return result;
+    }
+
+    private static void backtrack(List<List<Integer>> result, List<Integer> item, TreeNode node, int level){
+        if(node == null) return ;
+        // 如果当前的结果result中的列表数小于等于level，说明进入下一层，那么需要新建一个列表
+        if(result.size() <= level){
+            item = new ArrayList<>();
+            result.add(item);
+        }
+        // 注意，这里不能直接使用item，应该是最后一个的列表，因为在下面代码中，会把item引用传递给left和right，而left和right必须使用另一层的同一个集合
+        result.get(level).add(node.val);// 把当前的值加入当前层的列表中
+        // 继续添加它的左右子节点
+        backtrack(result, item, node.left, level + 1);
+        backtrack(result, item, node.right, level + 1);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
