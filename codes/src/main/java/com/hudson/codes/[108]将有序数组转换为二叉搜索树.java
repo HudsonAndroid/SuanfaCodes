@@ -35,7 +35,7 @@ class Solution108 {
 
     //注意：leetcode的打印方式是先根，再左，再右，不会进一步推到左右节点的子节点上去，是层序遍历
     // 先序遍历打印
-    private static void printTreeNode(Main.TreeNode node){
+    private static void printTreeNode(TreeNode node){
         if(node == null) return ;
         System.out.print(" "+node.val);
         printTreeNode(node.left);
@@ -44,11 +44,11 @@ class Solution108 {
 
     public static class TreeNode {
         int val;
-        Main.TreeNode left;
-        Main.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, Main.TreeNode left, Main.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
@@ -57,20 +57,20 @@ class Solution108 {
 
     // 二叉搜索树要尽可能平衡，那么就是要root需要取在中间位置
     //
-    public static Main.TreeNode sortedArrayToBST(int[] nums) {
+    public static TreeNode sortedArrayToBST(int[] nums) {
         if(nums == null || nums.length == 0) return null;
         int middle = (nums.length - 1) >> 1;
-        Main.TreeNode root = new Main.TreeNode(nums[middle]);
+        TreeNode root = new TreeNode(nums[middle]);
         backtrack(nums, 0, middle - 1, root);
         backtrack(nums, middle + 1, nums.length - 1, root);
         return root;
     }
 
-    private static void backtrack(int[] nums, int start, int end, Main.TreeNode root){
+    private static void backtrack(int[] nums, int start, int end, TreeNode root){
         if(start > end || end < 0 || start >= nums.length) return ;
         // 尽可能取中间位置
         int middle = (start + end) >> 1;
-        Main.TreeNode curNode = new Main.TreeNode(nums[middle]);
+        TreeNode curNode = new TreeNode(nums[middle]);
         if(root.val > nums[middle]){
             root.left = curNode;
         }else{
