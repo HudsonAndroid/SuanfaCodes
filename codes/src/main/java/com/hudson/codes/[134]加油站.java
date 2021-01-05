@@ -50,6 +50,34 @@ package com.hudson.codes;//在一条环路上有 N 个加油站，其中第 i �
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution134 {
+
+    // 暴力破解法
+    // 很明显，第一步的位置必然不可以使得最后剩下的汽油是负数，
+    // 因此我们直接遍历
+    public static int canCompleteCircuit1(int[] gas, int[] cost) {
+        if(gas == null || cost == null || gas.length != cost.length) return -1;
+        // 遍历所有可能的起始位置，如果从起始位置开始出现的负值，那么终止
+        for (int i = 0; i < gas.length; i++) {
+            if(gas[i] < cost[i]) continue;
+            // 说明汽油有剩余，那么继续判断
+            int left = gas[i] - cost[i];
+            int j = i + 1;
+            while(j != i && left >= 0){
+                if(j >= gas.length){
+                    j = 0;
+                }
+                left += gas[j] - cost[j];
+                j ++;
+            }
+            if(left >= 0 && i == j){
+                // 说明这个位置符合
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
     // 100%  83.29%
     // 本题使用遍历所有节点的方式
     // 或者说暴力破解，结果会超时。

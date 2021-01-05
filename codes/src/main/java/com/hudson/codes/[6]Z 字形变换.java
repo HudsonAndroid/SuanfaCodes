@@ -40,6 +40,7 @@ import java.util.List;
 class Solution6 {
     // 思路：按照正常顺序排下去，那么只是切换行的问题，没有别的问题
     // 因此用3个字符串记录各个行的值
+    // 【根据题意，它只是让我们输出结果，并不一定是要用一个二位数组记录结果，因此这个题目本身只是一个翻转的功能而已，不要想太复杂】
     public String convert(String s, int numRows) {
         if(numRows == 1){
             return s;

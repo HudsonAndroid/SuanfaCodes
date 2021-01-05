@@ -21,6 +21,7 @@ import java.util.Map;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution1 {
     // 最简单的方法，使用哈希表，空间复杂度较高
+    // 【思路】注意：可以边遍历边判断
     public int[] twoSum(int[] nums, int target) {
         if(nums != null){
             Map<Integer, Integer> valueIndexs = new HashMap<>();

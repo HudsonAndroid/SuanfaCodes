@@ -63,6 +63,7 @@ class Solution102 {
         if(root == null) return new ArrayList<>();
         // 队列，LinkedList
         Queue<TreeNode> queue = new LinkedList<>();
+
         queue.offer(root);//入队列
         int levelCount = 1;
         int nextLevelCount = 0;

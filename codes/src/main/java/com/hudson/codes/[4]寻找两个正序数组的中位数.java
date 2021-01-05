@@ -55,6 +55,7 @@ package com.hudson.codes;//给定两个大小为 m 和 n 的正序（从小到�
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution4 {
     // 简单暴力法：合并数组，然后求中位数
+    // 【注意：中位数可能是小数，因此别忘了float】
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int m = 0,n = 0;
         if(nums1 != null){

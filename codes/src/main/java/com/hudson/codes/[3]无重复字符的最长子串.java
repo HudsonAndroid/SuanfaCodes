@@ -33,6 +33,7 @@ class Solution3 {
     // 这道题不能简简单单地认为是HashMap存储字符位置，然后计算差值就可以了
     // 因为像 "abba"这样的，a被重复的b隔开，这样计算出来的a的不重复长度是3
     // 但实际上中间有重复的b
+    // 【思路：滑动窗口】
     public static int lengthOfLongestSubstring(String s) {
         if(s != null){
             HashMap<Character, Integer> indexs = new HashMap<>();
