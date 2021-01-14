@@ -116,5 +116,54 @@ class Solution5 {
 
     // 额，贴一句，动态规划按道理是减少了计算次数，可是实际提交发现耗时比中心扩散多得多，而且又要耗空间复杂度，gg
 
+
+
+
+
+
+
+    // 【复习】
+    // 也是动态规划思路，我们发现i,j的值取决于i+1和j-1的值
+    // 那么，我们用i到j的间隔值作为计算依据，填表所有间隔，从之前的间隔值可以推导出
+    // 后面的间隔值。间隔值从1开始，因为间隔值0（即i = j）没有参考意义
+    public static String longestPalindrome3(String s) {
+        if(s.length() == 0) return null;
+        int maxLeft = 0, maxRight = 0;// 两边都包含
+        int maxLen = 1;
+        // f(i,j) = f(i + 1, j - 1) && a[i] = a[j]
+        // 例如[1,4]由[2,3]推导而来，因此我们先填表间隔是1的值
+        int length = s.length();
+        boolean[][] dp = new boolean[length][length];
+        int offset = 1;// 间隔从1开始，i = j的忽略，从j - i = 1开始
+        while(offset <= length - 1){ // 最大间隔是 0 ~ length - 1
+            int i = 0;
+            int j = i + offset;
+            while(j <= length - 1){
+                if(j - i + 1 <= 3){
+                    // 直接判定
+                    dp[i][j] = s.charAt(i) == s.charAt(j);
+                }else{
+                    dp[i][j] = dp[i + 1][j - 1] && (s.charAt(i) == s.charAt(j));
+                }
+                if(dp[i][j]){
+                    int len = j - i + 1;
+                    if(len > maxLen){
+                        maxLen = len;
+                        maxLeft = i;
+                        maxRight = j;
+                    }
+                }
+                i++;
+                j++;
+            }
+            offset++;// 间隔增大一个单位
+        }
+        // 【注意，我们上面的maxRight是包含的，因此这里要+1】
+        return s.substring(maxLeft,maxRight + 1);
+    }
+    // 实际上就是参考的是间隔值比它们间隔值小2的dp值
+    // 所以，我们实际填表，如果最终要求的是0-length-1是否是回文串（即判定是否是回文串），那么要填到的间隔值大小是length - 1 - 2即可
+    // 然后0-length - 1只需要判定下首尾即可
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
