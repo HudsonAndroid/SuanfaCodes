@@ -73,5 +73,66 @@ class Solution2 {
         }
         return head;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习
+    public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        if(l1 == null) return l2;
+        if(l2 == null) return l1;
+        int over = 0;
+        ListNode head = null;
+        ListNode cur = null;
+        while(l1 != null || l2 != null){
+            int first = 0;
+            if(l1 != null){
+                first = l1.val;
+                l1 = l1.next;
+            }
+            int second = 0;
+            if(l2 != null){
+                second = l2.val;
+                l2 = l2.next;
+            }
+            int sum = first + second + over;
+            // 【错误1】应该是>=10
+            if(sum >= 10){
+                sum %= 10;
+                over = 1;
+            }else{
+                // 【错误2】另外over需要及时重置，避免对后面影响
+                over = 0;
+            }
+            ListNode node = new ListNode(sum);
+            if(head == null){
+                head = node;
+            }else{
+                cur.next = node;
+            }
+            cur = node;
+        }
+        // 判断是否还有溢出
+        if(over == 1){
+            cur.next = new ListNode(1);
+        }
+        return head;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -39,7 +39,7 @@ class Solution1 {
         throw new IllegalArgumentException("The array cannot be null");
     }
 
-    // 目前来看，如果返回下标的话，这种方式不适合
+    // 【无效】目前来看，如果返回下标的话，这种方式不适合
     // 方法二，避免使用空间复杂度，但是这种方式由于快排会打乱原有数组数字下标，因此只能返回数字对，而不是下标对
     public int[] twoSum2(int[] nums, int target) {
         // 对数组排序

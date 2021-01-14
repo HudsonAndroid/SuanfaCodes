@@ -64,5 +64,54 @@ class Solution6 {
         }
         return result.toString();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习
+    public static String convert2(String s, int numRows) {
+        //【注意：特殊情况要考虑】
+        if(numRows == 1) return s;
+        List<StringBuilder> builders = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            builders.add(new StringBuilder());
+        }
+        int row = 0;
+        boolean isAdd = true;
+        for (int i = 0; i < s.length(); i++) {
+            builders.get(row).append(s.charAt(i));
+            if(isAdd){
+                row++;
+            }else{
+                row--;
+            }
+            if(row == numRows - 1 || row == 0){
+                isAdd = !isAdd;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (StringBuilder builder : builders) {
+            sb.append(builder.toString());
+        }
+        return sb.toString();
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

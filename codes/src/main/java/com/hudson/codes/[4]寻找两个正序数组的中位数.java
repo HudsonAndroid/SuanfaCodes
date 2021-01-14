@@ -189,5 +189,67 @@ class Solution4 {
             return findKthNum(nums1, start1, end1, nums2, index2 + 1, end2, k - (index2 - start2 + 1));
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //【复习了，但还是做不出来，唉】
+    // 下次复习再来
+    public static double findMedianSortedArrays4(int[] nums1, int[] nums2) {
+        // 如果是奇数，我们找到第(m + n)/2 + 1大的数（注意第k大，k是从1开始）
+        // 如果是偶数，我们找到第(m + n)/2大的数和它的后一位的平均值
+        int total = nums1.length + nums2.length;
+        int k = (total >> 1) + 1;
+        if((total & 1) == 0){
+            return (findKthNum(nums1, nums2, k, 0,0)
+                    + findKthNum(nums1,nums2, k - 1, 0,0)) * 1.0 / 2;
+        }else{
+            return findKthNum(nums1, nums2, k, 0, 0);
+        }
+    }
+
+    public static int findKthNum(int[] nums1, int[] nums2, int k, int firstStart, int secondStart){
+        // 如果某一个已经没有可供查找的数据了，直接返回另一个的
+        if(firstStart >= nums1.length){
+            return nums2[secondStart + k - 1];
+        }
+        if(secondStart >= nums2.length){
+            return nums1[firstStart + k - 1];
+        }
+        if(k == 1){
+            // 我们要找到第一大的数，那么只需要找到更小的那个数
+            return Math.min(nums1[firstStart], nums2[secondStart]);
+        }
+        // 找第k/2大的数
+        int consumed = k >> 1;
+        int firstIndex = firstStart + consumed - 1;
+        int secondIndex = secondStart + consumed - 1;
+        if(firstIndex >= nums1.length){
+            firstIndex = nums1.length - 1;
+        }
+        if(secondIndex >= nums2.length){
+            secondIndex = nums2.length - 1;
+        }
+        if(nums1[firstIndex] > nums2[secondIndex]){
+            // 那么舍弃nums2中的secondStart ~ secondIndex（都包含）
+            consumed = secondIndex - secondStart + 1;
+            return findKthNum(nums1, nums2, k - consumed, firstStart, secondIndex + 1);
+        }else{
+            consumed = firstIndex - firstStart + 1;
+            return findKthNum(nums1, nums2, k - consumed, firstIndex + 1, secondStart);
+        }
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -86,5 +86,82 @@ class Solution3 {
         }
         throw new IllegalArgumentException("The input str cannot be null");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //【复习，发现易错题，复习还是错】
+    // 最容易出错的地方：认为找到了重复的，就直接+1替换掉left，其实可能找到的比现在的left还小
+    public static int lengthOfLongestSubstring3(String s) {
+        if(s.length() == 0) return 0;
+        if(s.length() == 1) return 1;
+        HashMap<Character, Integer> windowMap = new HashMap<>();
+        int left = 0;
+        int right = 1;
+        windowMap.put(s.charAt(0), 0);
+        int maxLen = 1;
+        // 需要明确right是一个新的位置，没有加入，记住这个思路
+        while(right <= s.length() - 1 && left < right){
+            char key = s.charAt(right);
+            if(windowMap.get(key) != null){// 记住，找到的key对应的位置可能比现在的left还小
+                // 【错误1】如果发现的是当前left之前的相同的位置，我们不能更新，而应该继续使用left
+
+                left = Math.max(windowMap.get(key) + 1, left); // 【错误思路，因为right是新值】如果之前已经存在该值，则更新left，由于必然比上一个长度短，因此不做任何处理
+            }
+//            else{
+//                // 更新值
+//            }
+            maxLen = Math.max(maxLen, right - left + 1);
+            windowMap.put(key, right);
+            right++;
+        }
+        return maxLen;
+    }
+
+
+    //【复习，注意保证map与窗口内容的同步】
+    public static int lengthOfLongestSubstring4(String s) {
+        if(s.length() == 0) return 0;
+        if(s.length() == 1) return 1;
+        int left = 0;
+        int right = 1;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int maxLen = 1;
+        map.put(s.charAt(0), 0);
+        while(right <= s.length() - 1 && left <= right){
+            char c = s.charAt(right);
+            if(map.containsKey(c)){
+                // 【注意】移除旧的元素，从left到旧的c所在的位置，【保证MAP与窗口同步】
+                Integer end = map.get(c);
+                int start = left;
+                while(start <= end){
+                    map.remove(s.charAt(start));
+                    start++;
+                }
+                // 那么缩小窗口，必然比缩小前大，因此不用判断len是否替换
+                left = end + 1;
+            }else{
+                // 判定是否超过了最长的长度
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+            map.put(c,right);
+            right++;
+        }
+        return maxLen;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
