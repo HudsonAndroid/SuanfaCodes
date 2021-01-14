@@ -48,5 +48,23 @@ class Solution7 {
         }
         return res;
     }
+
+
+    // 复习 【容易错处：忘记判断前面的是否超标】
+    public static int reverse2(int x) {
+        int result = 0;
+        while(x != 0){
+            int offset = x % 10;
+            // 【除了要判断最后的个位数是否超标外(是否以7或8结束)，还需要判断前面计算的数字是否超过了（最高位是否大于2，以及其他位）】
+            if((result > Integer.MAX_VALUE /10 || ((result == Integer.MAX_VALUE / 10) &&  offset > 7))
+                    ||
+                    ((result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && offset<-8)))){
+                return 0;
+            }
+            result = result * 10 + offset;
+            x /= 10;
+        }
+        return result;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
