@@ -113,5 +113,51 @@ class Solution23 {
 
     // 多说一句，在leetCode上，有种解法是两两合并，而且居然效率比上面的高，这。。。思路差不多啊
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习，合并k个升序链表
+    public static ListNode mergeKLists2(ListNode[] lists) {
+        if(lists == null) return null;
+        ListNode smaller = null;
+        int smallerIndex = -1;// 用于恢复
+        for (int i = 0; i < lists.length; i++) {
+            ListNode node = lists[i];
+            if(node == null) continue;
+            if(smaller == null){
+                smaller = node;
+                smallerIndex = i;
+                // 尝试把当前位置的head后移一位
+                lists[i] = smaller.next;
+            }else{
+                // 比较
+                if(smaller.val > node.val){
+                    // 因为找到了更小的，因此恢复
+                    lists[smallerIndex] = smaller;
+                    // 替换掉更小的
+                    smallerIndex = i;
+                    smaller = node;
+                    // 【错误，遗漏了这种情况下的后移操作】
+                    lists[i] = smaller.next;
+                }
+            }
+        }
+        // 一轮循环下来将找到当前应该找的更小的了，那么继续后续的
+        if(smaller != null){
+            smaller.next = mergeKLists(lists);
+        }
+        return smaller;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

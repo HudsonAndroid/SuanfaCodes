@@ -75,5 +75,66 @@ class Solution24 {
         head.next = swapPairs(next);
         return second;// 返回的是调整后的头结点
     }
+
+
+
+
+
+
+
+
+
+
+
+    // 复习：两两交换链表节点
+    public static ListNode swapPairs2(ListNode head) {
+        if(head == null) return null;
+        // 【错误】如果只有一个节点，直接返回head
+        if(head.next == null) return head;
+        ListNode newHead = null;
+        ListNode pre = null;
+        ListNode next = null;
+        ListNode before = head;
+        ListNode after = head.next;
+        while(after != null){
+            next = after.next;
+            // 交换
+            after.next = before;
+            // 判断pre
+            if(pre == null && newHead == null){
+                newHead = after;
+            }else{
+                pre.next = after;
+            }
+            pre = before;
+            // 继续下一轮
+            before = next;
+            if(before == null) break;
+            after = before.next;
+        }
+        if(pre != null){
+            pre.next = null;
+        }
+        // 【错误2】如果最后只剩下一个节点，那么应该也要交换
+        if(before != null && after == null){
+            pre.next = before;
+        }
+        return newHead;
+    }
+
+    // 复习2：两两交换链表节点
+    // 把一个链表当两个链表处理
+    public static ListNode swapPairs3(ListNode head) {
+        if(head == null) return null;
+        ListNode second = head.next;
+        // head作为前一个节点，second作为后一个节点
+        if(second == null) return null;
+        // 我们先记录后面继续的条件节点
+        ListNode next = second.next;
+        // 交换两个节点
+        second.next = head;
+        head.next = swapPairs3(next);// 继续，next作为下一段的第一个节点
+        return second;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

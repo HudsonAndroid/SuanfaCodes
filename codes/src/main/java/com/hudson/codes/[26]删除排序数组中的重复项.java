@@ -61,6 +61,9 @@ class Solution26 {
     // 我们只需要保证p+1的位置与p的位置不重复，并且维持住升序状态，其他不需要管
     // 终止条件：q到末尾了
     // 1 2 2 3 3 4 =>  1 2 3 2 3 4 => 1 2 3 4 3 2
+
+    // 简单点说，就是两个指针，一个p一个q，p指针在最开始的位置，q在后一个位置，要填充p+1的位置，因此从q开始从后面
+    // 找一个与p位置值不等的元素。值得注意的是，p的值是不断增大的，不可能比之前的小（因为排序数组）
     public int removeDuplicates(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         int p = 0;
@@ -72,6 +75,41 @@ class Solution26 {
                 // 这时不重复的end下标加1
                 p ++;
             }
+        }
+        return p + 1;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习
+    public int removeDuplicates2(int[] nums) {
+        if(nums == null) return 0;
+        int p = 0;
+        int q = p + 1;
+        // 每次找出一个与p下标位置不同的数，放到p+1上
+        while(q < nums.length){
+            while(q < nums.length && nums[p] == nums[q]){
+                q++;// 如果相同，继续后面找
+            }
+            // 【错误1】存在例如[1,1],那么就是特殊情况
+            if(q >= nums.length) break;
+            // 找到了不同的，交换
+            if(q < nums.length){
+                int tmp = nums[p + 1];
+                nums[p + 1] = nums[q];
+                nums[q] = tmp;
+            }
+            p++;
+            q++;
         }
         return p + 1;
     }

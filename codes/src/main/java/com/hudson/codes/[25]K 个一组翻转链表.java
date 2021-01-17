@@ -96,5 +96,57 @@ class Solution25 {
         head.next = reverse(nextKHead, k, curIndex + 1, endIndex);
         return cur;// 返回翻转后的头结点
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //复习，k个一组翻转链表，这个题目值得一做。【关键是看怎么把问题转变为更简单的链表翻转】
+    public static ListNode reverseKGroup2(ListNode head, int k) {
+        if(head == null) return null;
+        int len = 0;
+        ListNode cur = head;
+        while(cur != null){
+            len ++;
+            cur = cur.next;
+        }
+        int endIndex = len / k * k - 1;// 计算翻转链表的最后一个节点
+        return backtrack(head, 0, k, endIndex);
+    }
+
+    // 首先，翻转链表必须有一个head
+    private static ListNode backtrack(ListNode head, int curIndex,int k, int endIndex){
+        if(curIndex > endIndex){
+            return head;
+        }
+        // 如果没有超过endIndex(包含，因为它本身也要参与翻转)
+        // 一个一个翻转
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode next;
+        while((curIndex % k != 0)){
+            // 翻转, 先保存下一个节点
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+            curIndex++;
+        }
+        // 上面循环中并没有完成最后一个（刚好是k的倍数位置）的翻转
+        ListNode nextKHead = cur.next;
+        cur.next = pre;// 完成当前k组中最后一个的翻转
+        // 接着，把当前翻转后的尾部，也就是最初的head，指向后面翻转的结果中
+        head.next = backtrack(nextKHead, curIndex + 1, k, endIndex);
+        // 返回我们的新头节点，注意，就是cur，慢慢深入理解
+        return cur;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
