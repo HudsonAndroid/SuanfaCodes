@@ -87,5 +87,29 @@ class Solution38 {
         sb.append(count).append(refer);
         return sb.toString();
     }
+
+
+
+    // 复习
+    public static String countAndSay2(int n) {
+        if(n == 1) return "1";
+        String last = countAndSay2(n - 1);
+        char first = last.charAt(0);
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < last.length(); i++) {
+            char r = last.charAt(i);
+            if(r == first){
+                count++;
+            }else{
+                sb.append(count).append(first);
+                first = r;
+                count = 1;
+            }
+        }
+        // 末尾也要处理
+        sb.append(count).append(first);
+        return sb.toString();
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

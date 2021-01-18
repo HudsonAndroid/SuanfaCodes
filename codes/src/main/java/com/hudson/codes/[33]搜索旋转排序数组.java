@@ -90,5 +90,86 @@ class Solution33 {
         }
         return -1;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习,值得重做，出错问题：【在切换left或right的时候，不用再考虑middle，因此right=middle+1，而不是middle】
+    // 思路错误，下面解答是错误的，我们实际是判断是否是升序数组，然后再判断数字是否在它内部
+    public static int search_error(int[] nums, int target) {
+        if(nums == null || nums.length == 0) return -1;
+        int left = 0;
+        int right = nums.length - 1;
+        int middle = -1;
+        while(left < right){
+            middle = (left + right) >>> 1;
+            if(nums[middle] == target) return middle;
+            if(nums[middle] > target){
+                if(nums[left] <= target){ // left < target < middle，说明left ~ middle是升序的
+                    right = middle - 1;
+                }else{
+                    // 如果这边不是升序，那么另一端是升序
+                    left = middle + 1;
+                }
+            }else{
+                //new int[]{4,5,6,7,8,1,2,3}, 8情况不符合要求
+                if(target <= nums[right]){ // middle < target < right
+                    left = middle + 1;
+                }else{
+                    right = middle - 1;
+                }
+            }
+        }
+        if(left == right && nums[left] == target){
+            return left;
+        }
+        return -1;
+    }
+
+    // 复习，正确解法
+    public static int search2(int[] nums, int target) {
+        if(nums == null || nums.length == 0) return -1;
+        int left = 0;
+        int right = nums.length - 1;
+        int middle = -1;
+        while(left < right){
+            middle = (left + right) >>> 1;
+            if(nums[middle] == target) return middle;
+            // 判断升序数组的位置
+            // 【错误】像[3,1]这样的输入，问题，要找后面，因此要加=号
+            if(nums[left] <= nums[middle]){// 说明前面部分是升序数组
+                // 接着判断目标是否在升序数组内部
+                // 另外考虑边界问题，left是否可能与target相等，可能，因此增加等号
+                if(nums[left] <= target && target < nums[middle]){
+                    // 在内部，则修改right，注意，middle不用包含在内了
+                    right = middle - 1;
+                }else{
+                    // 必然在另一个数组内部，那么继续判断
+                    left = middle + 1;
+                }
+            }else{// 说明后面部分是升序数组
+                // 判断目标是否在升序数组内部
+                if(nums[middle] < target && target <= nums[right]){
+                    left = middle + 1;
+                }else{
+                    right = middle - 1;
+                }
+            }
+        }
+        // 如果到最后left = right了，判断下是否就是target [其实也可以在上面循环中增加=号]
+        if(left == right && nums[left] == target){
+            return left;
+        }
+        return -1;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

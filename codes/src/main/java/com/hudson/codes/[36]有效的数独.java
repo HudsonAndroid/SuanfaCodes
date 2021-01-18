@@ -210,5 +210,61 @@ class Solution36 {
         // 做&运算，为1，则已经出现过；不是的话，需要给map记录上1，因此做^运算
         return (map >> (num - 1) & 1) == 1 ? -1 : (map ^ (1 << (num - 1)));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 复习，注意：纵坐标方向是i，即行，横坐标方向是列
+    public static boolean isValidSudoku4(char[][] board) {
+        if(board == null || board.length == 0 || board[0] == null || board[0].length == 0) return false;
+        int rowMap = 0;
+        int[] columnMap = new int[9];
+        int[] boxMap = new int[3];
+        for (int i = 0; i < board.length; i++) {
+            // 每行重新开始，都重置为0
+            rowMap = 0;
+            // 每3行重置一次box
+            if(i % 3 == 0){
+                for (int i1 = 0; i1 < boxMap.length; i1++) {
+                    boxMap[i1] = 0;
+                }
+            }
+            for (int j = 0; j < board[0].length; j++) {
+                char c = board[i][j];
+                if(c == '.') continue;
+                int num = c - '0';
+                // 检测行
+                int result = checkAndInsert(rowMap, num);
+                if(result == -1) return false;
+                // 插入列并检测是否和之前的重复
+                result = checkAndInsert(columnMap[j], num);
+                if(result == -1) return false;
+                // 然后把该列结果写入
+                columnMap[j] = result;
+                result = checkAndInsert(boxMap[j / 3], num);
+                if(result == -1) return false;
+                boxMap[j / 3] = result;
+            }
+        }
+        return true;
+    }
+
+    private static int checkAndInsert(int map, int num){
+        return ((map >> (num - 1)) & 1) == 1 ? -1 : (map ^ (1 << (num - 1)));
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

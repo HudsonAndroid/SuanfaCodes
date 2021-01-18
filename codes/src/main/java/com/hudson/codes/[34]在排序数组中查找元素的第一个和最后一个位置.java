@@ -117,5 +117,54 @@ class Solution34 {
         }
         return  -1;
     }
+
+
+
+    // 复习。 注意：找尾部的时候，要left + right + 1再除以2
+    public static int[] searchRange2(int[] nums, int target) {
+        if(nums == null || nums.length == 0) return new int[]{-1,-1};
+        return new int[]{findStart(nums, target), findEnd(nums,target)};
+    }
+
+    private static int findStart(int[] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        while(left < right){
+            int middle = (left + right) >>> 1;
+            if(nums[middle] == target){
+                // 找到了，那么继续迁移right
+                right = middle; // 而且需要继续保留当前的middle，否则有可能再找不到我们要的数
+            }else if(nums[middle] > target){
+                right = middle - 1;
+            }else{
+                left = middle + 1;
+            }
+        }
+        // 跳出循环
+        if(left == right && nums[left] == target){
+            return left;
+        }
+        return -1;// 没有找到
+    }
+
+    private static int findEnd(int[] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        while(left < right){
+            int middle = (left + right + 1) >>> 1;
+            if(nums[middle] == target){
+                // 找到了，继续前移left
+                left = middle;
+            }else if(nums[middle] > target){
+                right = middle - 1;
+            }else{
+                left = middle + 1;
+            }
+        }
+        if(left == right && nums[left] == target){
+            return left;
+        }
+        return -1;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

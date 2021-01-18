@@ -73,5 +73,39 @@ class Solution41 {
         nums[l] = nums[r];
         nums[r] = tmp;
     }
+
+
+
+
+
+
+    // 复习
+    public static int firstMissingPositive2(int[] nums) {
+        if(nums == null || nums.length == 0) return 1;
+        // 尝试，1放在下标为0的位置，2放在下标为1的位置...
+        for (int i = 0; i < nums.length; i++) {
+            while(nums[i] != i + 1){
+                // 那么尝试把这个数放到它该放的位置
+                // 如果目标位置已经是它该有的数，则不替换
+                int targetIndex = nums[i] - 1;
+                if(targetIndex < nums.length && targetIndex >= 0){
+                    if(nums[targetIndex] == targetIndex + 1) break;// 这一步很重要，否则会出现死循环，例如[1,1]
+                    // 可以交换，因此交换
+                    int tmp = nums[targetIndex];
+                    nums[targetIndex] = nums[i];
+                    nums[i] = tmp;
+                }else{
+                    break;
+                }
+            }
+        }
+        // 再次遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != i + 1){
+                return i + 1;
+            }
+        }
+        return nums.length + 1;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
