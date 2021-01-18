@@ -1,4 +1,4 @@
-package com.hudson.codes;
+package com.hudson.codes.threads;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

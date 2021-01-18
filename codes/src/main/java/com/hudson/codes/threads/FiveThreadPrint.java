@@ -1,4 +1,4 @@
-package com.hudson.codes;
+package com.hudson.codes.threads;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
