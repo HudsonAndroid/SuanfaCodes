@@ -70,5 +70,29 @@ class Solution19 {
         second.next = second.next.next;
         return tmpHead.next;
     }
+
+
+
+    // 复习【值得做下，毕竟考得可能较大】
+    // 1 - 2 - 3 - 4
+    // 我们并不是说一定要找到删除节点的前一个和后一个，可以只找到前一个，后面的可以通过前面的推导出来
+    // 容易出错的地方是，注意到底是fast != null还是fast.next != null
+    public static ListNode removeNthFromEnd2(ListNode head, int n) {
+        if(head == null) return null;
+        ListNode wrap = new ListNode(0, head);
+        ListNode wrapHead = wrap;
+        ListNode fast = head;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        // 同时后移
+        while(fast != null){
+            fast = fast.next;
+            wrap = wrap.next;
+        }
+        // 我们并没有找要删除节点的后的那一个，只是找到删除节点的前一个节点
+        wrap.next = wrap.next.next;
+        return wrapHead.next;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
