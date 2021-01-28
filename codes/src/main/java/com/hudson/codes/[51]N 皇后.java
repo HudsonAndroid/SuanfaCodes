@@ -107,5 +107,65 @@ class Solution51 {
         return true;
     }
 
+
+
+
+    // 复习
+    public static List<List<String>> solveNQueens2(int n){
+        List<List<String>> result = new ArrayList<>();
+        char[][] queue = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                queue[i][j] = '.';
+            }
+        }
+        editQueens2(result, queue, 0);
+        return result;
+    }
+
+    private static void editQueens2(List<List<String>> result, char[][] queue, int row){
+        if(row >= queue.length){
+            List<String> itemResult = new ArrayList<>();
+            // 行填完了，添加结果
+            StringBuilder sb;
+            for (int i = 0; i < queue.length; i++) {
+                sb = new StringBuilder();
+                for (int j = 0; j < queue[0].length; j++) {
+                    sb.append(queue[i][j]);
+                }
+                itemResult.add(sb.toString());
+            }
+            result.add(itemResult);
+            return ;
+        }
+        // 上面是一个结果
+
+        int column = queue[0].length;
+        for (int i = 0; i < column; i++) {// 尝试填写列
+            if(canEdit2(queue, row, i)){
+                // 填入
+                queue[row][i] = 'Q';
+                editQueens(result, queue, row + 1);
+                queue[row][i] = '.';// 回溯
+            }
+        }
+    }
+
+    private static boolean canEdit2(char[][] queue, int row, int column){
+        // 行不用判断是否有问题
+        // 判断列
+        for (int i = 0; i < queue.length; i++) {
+            if(queue[i][column] == 'Q') return false;
+        }
+        // 判断斜方向，由于我们是按照行往下填的，因此只需要判断左斜上方和右斜上方
+        for(int i = row, j = column; i >= 0 && j >= 0 ; i--, j--){
+            if(queue[i][j] == 'Q') return false;
+        }
+        for(int i=row, j=column; i>= 0 && j < queue[0].length; i--, j++){
+            if(queue[i][j] == 'Q') return false;
+        }
+        return true;
+    }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

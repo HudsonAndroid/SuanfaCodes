@@ -111,5 +111,24 @@ class Solution62 {
         }
         return dp[n - 1][m - 1];
     }
+
+
+
+    // 复习
+    public static int uniquePaths3(int m, int n) {
+        // f(m, n) = f(m - 1, n) + f(m, n - 1)
+        int[][] dp = new int[m][n];
+        dp[0][0] = 1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // 最开始的位置忽略
+                if(i == 0 && j == 0) continue;
+                int left = i - 1 < 0 ? 0 : dp[i - 1][j];
+                int right = j - 1 < 0 ? 0 : dp[i][j - 1];
+                dp[i][j] = left +  right;
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

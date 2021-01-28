@@ -110,5 +110,50 @@ class Solution46 {
         return ((map >> index & 1) == 1) ? -1 : (map ^ (1 << index));
     }
 
+
+    // 【复习】
+    private static List<List<Integer>> fix(int[] inputs){
+        if(inputs == null || inputs.length == 0) return new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        int mapLen = inputs.length / 32 + inputs.length % 32 == 0 ? 0 : 1;
+        int[] map = new int[mapLen];
+        List<Integer> item = new ArrayList<>();
+        for (int i = 0; i < inputs.length; i++) {
+            item.add(inputs[i]);
+            int position = i / 32;
+            map[position] = saveUsed(map[position], i % 32);
+            backtrack(result, item, 1, inputs, map);
+            // 恢复
+            for (int j = 0; j < map.length; j++) {
+                map[j] = 0;
+            }
+            item.clear();
+        }
+        return result;
+    }
+
+    private static void backtrack(List<List<Integer>> result, List<Integer> item, int curIndex, int[] inputs, int[] map){
+        if(curIndex >= inputs.length){
+            result.add(new ArrayList<Integer>(item));
+            return ;
+        }
+        for (int i = 0; i < inputs.length; i++) {
+            int position = i / 32;
+            int mapResult = saveUsed(map[position], i % 32);
+            if(mapResult == -1){
+                continue;
+            }
+            int oldValue = map[position];
+            map[position] = mapResult;
+            item.add(inputs[i]);
+            backtrack(result, item, curIndex + 1, inputs, map);
+            map[position] = oldValue;
+            item.remove(item.size() - 1);
+        }
+    }
+
+    private static int saveUsed(int map, int index){
+        return ((map >>> index) & 1) == 1 ? -1 : (map ^ (1 << index));
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

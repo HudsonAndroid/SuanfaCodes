@@ -145,7 +145,7 @@ class Solution33 {
             middle = (left + right) >>> 1;
             if(nums[middle] == target) return middle;
             // 判断升序数组的位置
-            // 【错误】像[3,1]这样的输入，问题，要找后面，因此要加=号
+            // 【错误】像[3,1]这样的输入的问题，要找后面，因此要加=号
             if(nums[left] <= nums[middle]){// 说明前面部分是升序数组
                 // 接着判断目标是否在升序数组内部
                 // 另外考虑边界问题，left是否可能与target相等，可能，因此增加等号

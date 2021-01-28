@@ -126,5 +126,67 @@ class Solution47 {
             usedIndexes.remove(i);
         }
     }
+
+
+
+
+
+    // 复习
+    private static List<List<Integer>> fix(int[] inputs){
+        if(inputs == null || inputs.length == 0) return new ArrayList<>();
+        // 排序
+        Arrays.sort(inputs);
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> item = new ArrayList<>();
+        HashSet<Integer> usedSet = new HashSet<>();
+        backtrack(result, item, 0, inputs, usedSet);
+        return result;
+    }
+
+    // 【必须使用下标存储HashSet方式】【判断是否重复的时候，不仅需要判断i位置的值是否与i-1相等，还需要判断i-1是否之前已经使用过】
+    private static void backtrack(List<List<Integer>> result, List<Integer> item, int curIndex, int[] inputs, HashSet<Integer> usedSet){
+        if(curIndex >= inputs.length){
+            result.add(new ArrayList<Integer>(item));
+            return ;
+        }
+        // 每次确定一个位置的数
+        for (int i = 0; i < inputs.length; i++) {
+            if(usedSet.contains(/*inputs[*/i/*]*/)) continue;
+            if(i > 0 && inputs[i] == inputs[i - 1] && !usedSet.contains(i - 1)) continue;
+            usedSet.add(/*inputs[*/i/*]*/);
+            item.add(inputs[i]);
+            backtrack(result, item, curIndex + 1, inputs, usedSet);
+            usedSet.remove(/*inputs[*/i/*]*/);
+            item.remove(item.size() - 1);
+        }
+    }
+
+    private static List<List<Integer>> fix2(int[] inputs){
+        if(inputs == null || inputs.length == 0) return new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> item = new ArrayList<>();
+        HashSet<Integer> usedSet = new HashSet<>();
+        backtrack2(result, item, 0, inputs, usedSet);
+        return result;
+    }
+
+    private static void backtrack2(List<List<Integer>> result, List<Integer> item, int curIndex, int[] inputs, HashSet<Integer> usedSet){
+        if(curIndex >= inputs.length){
+            result.add(new ArrayList<Integer>(item));
+            return ;
+        }
+        // 本次循环中为了避免重复，再使用一个HashSet排除重复
+        HashSet<Integer> loopMap = new HashSet<>();
+        for (int i = 0; i < inputs.length; i++) {
+            if(loopMap.contains(inputs[i])) continue;
+            if(usedSet.contains(i)) continue;
+            loopMap.add(inputs[i]);
+            usedSet.add(i);
+            item.add(inputs[i]);
+            backtrack2(result, item, curIndex + 1, inputs, usedSet);
+            usedSet.remove(i);
+            item.remove(item.size() - 1);
+        }
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

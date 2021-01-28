@@ -82,5 +82,53 @@ class Solution54 {
         }
         return result;
     }
+
+
+    // 复习
+    private static List<Integer> fix(int[][] inputs){
+        int startLimit = (Math.min(inputs.length , inputs[0].length) + 1) >> 1;
+        int startI = 0;
+        int startJ = 0;
+        int endI = inputs.length - 1;
+        int endJ = inputs[0].length - 1;
+        List<Integer> result = new ArrayList<>();
+        while(startI < startLimit){
+            startJ = startI;
+            // 横向，不包括末尾
+            for (int j = startJ; j < endJ; j++) {
+                result.add(inputs[startI][j]);
+            }
+            // 向下
+            for (int i = startI; i < endI; i++) {
+                result.add(inputs[i][endJ]);
+            }
+            // 向左 ，如果只有单独的一行，这里会重复输出前面的横向，因此判断
+            if(endI > startI){
+                for(int j = endJ; j > startJ; j --){
+                    result.add(inputs[endI][j]);
+                }
+            }else{
+                // 在只有一行的情况下，由于第一次横向没有处理掉，所以这里处理
+                result.add(inputs[startI][endJ]);
+            }
+            // 向上
+            if(endJ > startJ){
+                for(int i = endI; i > startI; i--){
+                    result.add(inputs[i][startJ]);
+                }
+            }else{
+                // 这里也一样，只有一列的情况
+//                result.add(inputs[endI][startJ]); // 但其实有一种情况就是只有一个数的情况，即startI == endI && startJ == endJ
+                // 因此如果不是start == endI && startJ == endJ，那么就可以加，否则会重复添加
+                if(startI != endI || startJ != endJ){
+                    result.add(inputs[endI][startJ]);
+                }
+            }
+            startI++;
+            endI--;
+            endJ--;
+        }
+        return result;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

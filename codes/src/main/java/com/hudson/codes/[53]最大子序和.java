@@ -20,9 +20,10 @@ class Solution53 {
     // 通过，时间94.13%，空间66.44%
     // 最大和，很明显使用动态规划最简单
     // 由于包含正负数，因此需要分类讨论
-    // dp(i)表示以i结尾的最大子数组的和
+    // dp(i)表示以i结尾的最大子数组的和， 注意必须以i结尾
     // 那么dp(i) = dp(i - 1) + nums[i] 且nums[i] >= 0
-    // dp(i) = dp(i - 1) 且 nums[i] < 0
+    // dp(i) = dp(i - 1) 且 nums[i] < 0  这个转移方程有问题吧（复习发现）
+    // 应该是这样的吧？ dp(i) = max(dp(i - 1) + nums[i], nums[i])
     public static int maxSubArray(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         int[] dp = new int[nums.length];

@@ -71,5 +71,41 @@ class Solution79 {
         }
         return result;
     }
+
+
+    // 复习
+    public static boolean exist2(char[][] board, String word) {
+        int rows = board.length;
+        int columns = board[0].length;
+        boolean[][] visited = new boolean[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if(board[i][j] == word.charAt(0)){
+                    if(track(board, word, 0,i, j, rows, columns, visited)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean track(char[][] board, String word, int index,int row, int column, int rows, int columns, boolean[][] visited){
+        if(index >= word.length()){
+            return true;
+        }
+        if(row >= rows || column >= columns || row < 0 || column < 0) return false;
+        // 【遗漏判断是否已经走过】
+        if(!visited[row][column] && board[row][column] != word.charAt(index)) return false;
+        visited[row][column] = true;
+        boolean result = track(board, word, index + 1, row - 1, column, rows, columns, visited) ||
+                track(board, word, index + 1, row + 1, column, rows, columns, visited) ||
+                track(board, word, index + 1, row, column - 1, rows, columns, visited) ||
+                track(board, word, index + 1, row, column + 1, rows, columns, visited);
+        if(!result){
+            visited[row][column] = false;// 恢复
+        }
+        return result;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

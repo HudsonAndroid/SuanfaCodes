@@ -250,7 +250,7 @@ class LRUCache2<Key, Value> {
     }
 }
 
-//
+
 //// 法3 使用LinkedList这个双向链表（队列）
 //// 10%  97.41%
 //// 我们使用LinkedList + HashMap来完成
@@ -274,7 +274,7 @@ class LRUCache2<Key, Value> {
 //    // 因为这样我们才能通过Map定位到是双向链表中的哪一个节点
 ////        private Map<Key, Value> map = new HashMap<>();
 //    private Map<Key, LRUCache3.Node> map = new HashMap<>();
-//    private LinkedList<LRUCache3.Node> list = new LinkedList<>();
+//    private LinkedList<Node> list = new LinkedList<>();
 //
 //    public LRUCache3(int capacity) {
 //        this.capacity = capacity;
