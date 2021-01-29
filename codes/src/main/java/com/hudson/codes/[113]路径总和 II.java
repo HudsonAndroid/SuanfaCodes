@@ -42,11 +42,11 @@ import java.util.List;
 class Solution113 {
     public static class TreeNode {
         int val;
-        Main.TreeNode left;
-        Main.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, Main.TreeNode left, Main.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
@@ -54,14 +54,14 @@ class Solution113 {
     }
 
     //100%  91.42%
-    public static List<List<Integer>> pathSum(Main.TreeNode root, int sum) {
+    public static List<List<Integer>> pathSum(TreeNode root, int sum) {
         if(root == null) return new ArrayList<>();
         List<List<Integer>> result = new ArrayList<>();
         backtrack(root, sum, new ArrayList<Integer>(), result);
         return result;
     }
 
-    private static void backtrack(Main.TreeNode root, int sum, List<Integer> item, List<List<Integer>> result){
+    private static void backtrack(TreeNode root, int sum, List<Integer> item, List<List<Integer>> result){
         if(root == null) // 如果节点已经是空的了，那么必然无法比对上sum 【注意，sum不可能为0】
             return ;
         if(root.val == sum && root.left == null && root.right == null){

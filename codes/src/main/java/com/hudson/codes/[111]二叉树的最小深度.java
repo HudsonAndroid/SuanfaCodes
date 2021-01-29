@@ -50,10 +50,23 @@ package com.hudson.codes;//给定一个二叉树，找出其最小深度。
  * }
  */
 class Solution111 {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
     // 35.6%  5.09%
     // 跟上一题一样，比较即可
     // 【注意】：有可能出现left或者right中一个是null的情况，这种根节点深度不能仅算根节点
-    public static int minDepth(Main.TreeNode root) {
+    public static int minDepth(TreeNode root) {
         if(root == null) return 0;
         // 【容易错】
         if(root.left == null) return minDepth(root.right) + 1;

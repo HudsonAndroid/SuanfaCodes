@@ -36,8 +36,21 @@ package com.hudson.codes;//给定一个二叉树，找出其最大深度。
  * }
  */
 class Solution104 {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
     // 100%  69.47%
-    public static int maxDepth(Main.TreeNode root) {
+    public static int maxDepth(TreeNode root) {
         if(root == null) return 0;
         int leftDepth = 1 + maxDepth(root.left);
         int rightDepth = 1 + maxDepth(root.right);

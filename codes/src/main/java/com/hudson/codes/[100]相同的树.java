@@ -57,11 +57,11 @@ package com.hudson.codes;//给定两个二叉树，编写一个函数来检验�
 class Solution100 {
     public static class TreeNode {
         int val;
-        Main.TreeNode left;
-        Main.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, Main.TreeNode left, Main.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
@@ -69,7 +69,7 @@ class Solution100 {
     }
 
     // 100%, 92.57%
-    public static boolean isSameTree(Main.TreeNode p, Main.TreeNode q) {
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
         if(p == null && q == null) return true;
         if(p == null || q == null) return false;
         if(p.val == q.val){

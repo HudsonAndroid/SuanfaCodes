@@ -31,11 +31,24 @@ package com.hudson.codes;//给定一个二叉树和一个目标和，判断该�
  * }
  */
 class Solution112 {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
     // 很容易出错
     // 100%  68.39%
     //【1.一定是保证等于0即可，其他情况不考虑，因为有可能是负数】
     // 【2.必须保证叶子节点】
-    public boolean hasPathSum(Main.TreeNode root, int sum) {
+    public boolean hasPathSum(TreeNode root, int sum) {
         if(root == null) return false;
         if(root.val == sum && root.left == null && root.right == null) return true;
         if(!hasPathSum(root.left, sum - root.val)){

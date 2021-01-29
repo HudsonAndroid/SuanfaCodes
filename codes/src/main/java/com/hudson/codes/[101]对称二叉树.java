@@ -43,13 +43,26 @@ package com.hudson.codes;//给定一个二叉树，检查它是否是镜像对�
  * }
  */
 class Solution101 {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    
     // 100% 82.29%
     // 很简单，既然对称，那么先左后根后右 = 先右后根后左
-    public static boolean isSymmetric(Main.TreeNode root) {
+    public static boolean isSymmetric(TreeNode root) {
         return compare(root, root);
     }
 
-    private static boolean compare(Main.TreeNode root, Main.TreeNode copy){
+    private static boolean compare(TreeNode root, TreeNode copy){
         if(root == null && copy == null) return true;
         if(root == null || copy == null) return false;
         if(root.val == copy.val){
